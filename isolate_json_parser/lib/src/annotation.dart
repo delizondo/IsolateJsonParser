@@ -1,0 +1,3 @@
+class IsolateJsonParser {
+  const IsolateJsonParser();
+}
