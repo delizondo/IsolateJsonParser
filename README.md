@@ -56,14 +56,13 @@ This will automatically generate the `isolate_json_parser.dart` file with the re
 When you execute any API call that returns a JSON, you can call the `IsolateJsonParser` singleton to run the parsing of the returning JSON in an Dart Isolate.
 
 ```dart
-Future<List<Event>> downloadAndParseJson() async {
+  Future<List<Event>> downloadAndParseJson() async {
     final response =
         await _dio.get('https://eonet.gsfc.nasa.gov/api/v2.1/events');
     if (response.statusCode == 200) {
       var data = response.data as Map<String, dynamic>;
       var jsonList = data["events"];
-      return IsolateJsonParser.instance
-          .parseJsonListBackground<Event>(jsonList);
+      return IsolateJsonParser.parseJsonListBackground<Event>(jsonList);
     } else {
       throw Exception('Failed to load json');
     }
