@@ -10,6 +10,14 @@ class IsolateJsonParser {
         .map((json) => AbstractJsonParser.fromJson<T>(json))
         .toList();
   }
+
+  static Future<T> parseJsonBackground<T>(Map<String, dynamic> json) async {
+    return compute(_parseObject, json);
+  }
+
+  static T _parseObject<T>(Map<String, dynamic> json) {
+    return AbstractJsonParser.fromJson<T>(json);
+  }
 }
 
 class AbstractJsonParser {

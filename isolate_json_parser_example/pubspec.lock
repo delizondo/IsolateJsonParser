@@ -300,10 +300,10 @@ packages:
     dependency: "direct dev"
     description:
       name: isolate_json_parser_generator
-      sha256: e24ad5c6e49c38fbcf6910280c157d1f598f555bf5af495d6c24ab72c102ed0a
+      sha256: bbe4a0774cbb806c2560100a000251afa90d18d415b075f3f751fdb3108de0aa
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.3"
+    version: "0.0.4"
   js:
     dependency: transitive
     description:

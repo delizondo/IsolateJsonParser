@@ -85,7 +85,24 @@ class ExportsBuilderGenerator implements Builder {
           ..name = "jsonList"
           ..type = const Reference("List")))
         ..body = const Code(
-            "return jsonList.map((json) => AbstractJsonParser.fromJson<T>(json)).toList();"))));
+            "return jsonList.map((json) => AbstractJsonParser.fromJson<T>(json)).toList();")))
+      ..methods.add(Method((m4) => m4
+        ..static = true
+        ..returns = Reference("Future<T>")
+        ..name = "parseJsonBackground<T>"
+        ..modifier = MethodModifier.async
+        ..requiredParameters.add(Parameter((p1) => p1
+          ..name = "json"
+          ..type = Reference("Map<String, dynamic>")))
+        ..body = Code("return compute(_parseObject, json);")))
+      ..methods.add(Method((m5) => m5
+        ..static = true
+        ..returns = Reference("T")
+        ..name = "_parseObject<T>"
+        ..requiredParameters.add(Parameter((p1) => p1
+          ..name = "json"
+          ..type = Reference("Map<String, dynamic>")))
+        ..body = Code("return AbstractJsonParser.fromJson<T>(json);"))));
   }
 
   Future<Class> _createAbstractJsonParser(BuildStep buildStep) async {

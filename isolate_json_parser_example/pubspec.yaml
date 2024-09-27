@@ -20,7 +20,7 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   build_runner: ^2.4.11
   json_serializable: ^6.8.0
-  isolate_json_parser_generator: ^0.0.3
+  isolate_json_parser_generator: ^0.0.4
 
 flutter:
   uses-material-design: true

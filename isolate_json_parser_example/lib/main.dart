@@ -63,7 +63,7 @@ class APIClient {
         await _dio.get('https://eonet.gsfc.nasa.gov/api/v2.1/events');
     if (response.statusCode == 200) {
       var data = response.data as Map<String, dynamic>;
-      var jsonList = data["events"];
+      var jsonList = data["events"];      
       return IsolateJsonParser.parseJsonListBackground<Event>(jsonList);
     } else {
       throw Exception('Failed to load json');
