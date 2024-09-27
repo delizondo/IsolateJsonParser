@@ -1,0 +1,25 @@
+builders:
+  # name of the builder
+  meta_data_builder:
+    import: "package:isolate_json_parser_generator/builder.dart"
+    runs_before: ["meta_data_builder:export_builder"]
+    builder_factories: ["metadataBuilder"]
+    build_extensions: { ".dart": [".exports"] }
+    auto_apply: dependents
+    build_to: cache
+
+  export_builder:
+    import: "package:isolate_json_parser_generator/builder.dart"
+    builder_factories: ["exportsBuilder"]
+    build_extensions: { ".dart": ["isolate_json_parser.dart"] }
+    required_inputs: [".exports"]
+    auto_apply: dependents
+    build_to: source
+
+post_process_builders:
+  temporary_file_cleanup:
+    import: "package:isolate_json_parser_generator/builder.dart"
+    builder_factory: temporaryFileCleanup
+    defaults:
+      release_options:
+        enabled: true

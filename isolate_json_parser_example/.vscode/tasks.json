@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build_runner",
+      "type": "shell",
+      "command": "flutter packages pub run build_runner build --delete-conflicting-outputs",
+      "options": {
+        "cwd": "${workspaceRoot}"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
