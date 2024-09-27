@@ -299,9 +299,10 @@ packages:
   isolate_json_parser_generator:
     dependency: "direct dev"
     description:
-      path: "../isolate_json_parser_generator"
-      relative: true
-    source: path
+      name: isolate_json_parser_generator
+      sha256: "25ed4134be0c9ff2ee8c9c677ac024ca77c62284ea8a24d90f492b0e7d1bb425"
+      url: "https://pub.dev"
+    source: hosted
     version: "0.0.2"
   js:
     dependency: transitive
