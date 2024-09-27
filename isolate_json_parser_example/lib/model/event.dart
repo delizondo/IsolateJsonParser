@@ -31,10 +31,6 @@ class Event {
 
   @override
   String toString() {
-
-    
-
-
     return 'Event(id: $id, title: $title, description: $description, link: $link, categories: $categories, sources: $sources, geometries: $geometries)';
   }
 

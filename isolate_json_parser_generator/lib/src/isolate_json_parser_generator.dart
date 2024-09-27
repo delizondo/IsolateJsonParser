@@ -68,14 +68,8 @@ class ExportsBuilderGenerator implements Builder {
   Class _createIsolateJsonParserClass() {
     return Class((b) => b
       ..name = 'IsolateJsonParser'
-      ..constructors.add(Constructor((c) => c..name = "_privateConstructor"))
-      ..methods.add(Method((m1) => m1
-        ..static = true
-        ..returns = const Reference("IsolateJsonParser")
-        ..type = MethodType.getter
-        ..name = "instance"
-        ..body = const Code("return IsolateJsonParser._privateConstructor();")))
       ..methods.add(Method((m2) => m2
+        ..static = true
         ..returns = const Reference("Future<List<T>> ")
         ..name = "parseJsonListBackground<T>"
         ..modifier = MethodModifier.async
@@ -84,6 +78,7 @@ class ExportsBuilderGenerator implements Builder {
           ..type = const Reference("List")))
         ..body = const Code("return compute(_parseList, jsonList);")))
       ..methods.add(Method((m3) => m3
+        ..static = true
         ..returns = const Reference("List<T>")
         ..name = "_parseList<T>"
         ..requiredParameters.add(Parameter((p1) => p1

@@ -292,18 +292,18 @@ packages:
     dependency: "direct main"
     description:
       name: isolate_json_parser
-      sha256: d00bc817ae83285dbfd2b52f5e52c59a8c18c8f833ab3ed017b2506f76463585
+      sha256: f6f9b99af314727a02a9f992f99bfdc6b6160b0da0292993a9730608d745175d
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.2"
+    version: "0.0.3"
   isolate_json_parser_generator:
     dependency: "direct dev"
     description:
       name: isolate_json_parser_generator
-      sha256: "25ed4134be0c9ff2ee8c9c677ac024ca77c62284ea8a24d90f492b0e7d1bb425"
+      sha256: e24ad5c6e49c38fbcf6910280c157d1f598f555bf5af495d6c24ab72c102ed0a
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.2"
+    version: "0.0.3"
   js:
     dependency: transitive
     description:

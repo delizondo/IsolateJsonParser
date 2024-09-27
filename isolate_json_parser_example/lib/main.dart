@@ -64,8 +64,7 @@ class APIClient {
     if (response.statusCode == 200) {
       var data = response.data as Map<String, dynamic>;
       var jsonList = data["events"];
-      return IsolateJsonParser.instance
-          .parseJsonListBackground<Event>(jsonList);
+      return IsolateJsonParser.parseJsonListBackground<Event>(jsonList);
     } else {
       throw Exception('Failed to load json');
     }
