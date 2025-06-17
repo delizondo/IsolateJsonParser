@@ -13,3 +13,7 @@
 ## 0.0.5
 
 - Update libraries
+
+## 0.0.5
+
+- Fix Type handling
