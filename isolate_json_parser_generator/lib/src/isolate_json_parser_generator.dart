@@ -21,20 +21,22 @@ class IsolateJsonParserGenerator implements Builder {
     ];
     if (annotated.isNotEmpty) {
       buildStep.writeAsString(
-          buildStep.inputId.changeExtension('.exports'), annotated.join(','));
+        buildStep.inputId.changeExtension('.exports'),
+        annotated.join(','),
+      );
     }
   }
 
   @override
   final buildExtensions = const {
-    '.dart': ['.exports']
+    '.dart': ['.exports'],
   };
 }
 
 class ExportsBuilderGenerator implements Builder {
   @override
   final buildExtensions = const {
-    r'$lib$': ['isolate_json_parser.dart']
+    r'$lib$': ['isolate_json_parser.dart'],
   };
 
   @override
@@ -43,7 +45,7 @@ class ExportsBuilderGenerator implements Builder {
 
     final content = [
       await for (var exportLibrary in exports)
-        'import \'${exportLibrary.changeExtension('.dart').uri}\'; '
+        'import \'${exportLibrary.changeExtension('.dart').uri}\'; ',
     ];
     content.join('\n');
     content.add("import 'package:flutter/foundation.dart';");
@@ -55,54 +57,97 @@ class ExportsBuilderGenerator implements Builder {
     final emitter = DartEmitter();
 
     content.join('\n');
-    content.add(DartFormatter().format('${isolateJsonParser.accept(emitter)}'));
+    content.add(
+      DartFormatter(
+        languageVersion: DartFormatter.latestLanguageVersion,
+      ).format('${isolateJsonParser.accept(emitter)}'),
+    );
     content.join('\n');
-    content
-        .add(DartFormatter().format('${abstractJsonParser.accept(emitter)}'));
+    content.add(
+      DartFormatter(
+        languageVersion: DartFormatter.latestLanguageVersion,
+      ).format('${abstractJsonParser.accept(emitter)}'),
+    );
 
     buildStep.writeAsString(
-        AssetId(buildStep.inputId.package, 'lib/isolate_json_parser.dart'),
-        content.join('\n'));
+      AssetId(buildStep.inputId.package, 'lib/isolate_json_parser.dart'),
+      content.join('\n'),
+    );
   }
 
   Class _createIsolateJsonParserClass() {
-    return Class((b) => b
-      ..name = 'IsolateJsonParser'
-      ..methods.add(Method((m2) => m2
-        ..static = true
-        ..returns = const Reference("Future<List<T>> ")
-        ..name = "parseJsonListBackground<T>"
-        ..modifier = MethodModifier.async
-        ..requiredParameters.add(Parameter((p1) => p1
-          ..name = "jsonList"
-          ..type = const Reference("List")))
-        ..body = const Code("return compute(_parseList, jsonList);")))
-      ..methods.add(Method((m3) => m3
-        ..static = true
-        ..returns = const Reference("List<T>")
-        ..name = "_parseList<T>"
-        ..requiredParameters.add(Parameter((p1) => p1
-          ..name = "jsonList"
-          ..type = const Reference("List")))
-        ..body = const Code(
-            "return jsonList.map((json) => AbstractJsonParser.fromJson<T>(json)).toList();")))
-      ..methods.add(Method((m4) => m4
-        ..static = true
-        ..returns = Reference("Future<T>")
-        ..name = "parseJsonBackground<T>"
-        ..modifier = MethodModifier.async
-        ..requiredParameters.add(Parameter((p1) => p1
-          ..name = "json"
-          ..type = Reference("Map<String, dynamic>")))
-        ..body = Code("return compute(_parseObject, json);")))
-      ..methods.add(Method((m5) => m5
-        ..static = true
-        ..returns = Reference("T")
-        ..name = "_parseObject<T>"
-        ..requiredParameters.add(Parameter((p1) => p1
-          ..name = "json"
-          ..type = Reference("Map<String, dynamic>")))
-        ..body = Code("return AbstractJsonParser.fromJson<T>(json);"))));
+    return Class(
+      (b) => b
+        ..name = 'IsolateJsonParser'
+        ..methods.add(
+          Method(
+            (m2) => m2
+              ..static = true
+              ..returns = const Reference("Future<List<T>> ")
+              ..name = "parseJsonListBackground<T>"
+              ..modifier = MethodModifier.async
+              ..requiredParameters.add(
+                Parameter(
+                  (p1) => p1
+                    ..name = "jsonList"
+                    ..type = const Reference("List"),
+                ),
+              )
+              ..body = const Code("return compute(_parseList, jsonList);"),
+          ),
+        )
+        ..methods.add(
+          Method(
+            (m3) => m3
+              ..static = true
+              ..returns = const Reference("List<T>")
+              ..name = "_parseList<T>"
+              ..requiredParameters.add(
+                Parameter(
+                  (p1) => p1
+                    ..name = "jsonList"
+                    ..type = const Reference("List"),
+                ),
+              )
+              ..body = const Code(
+                "return jsonList.map((json) => AbstractJsonParser.fromJson<T>(json)).toList();",
+              ),
+          ),
+        )
+        ..methods.add(
+          Method(
+            (m4) => m4
+              ..static = true
+              ..returns = Reference("Future<T>")
+              ..name = "parseJsonBackground<T>"
+              ..modifier = MethodModifier.async
+              ..requiredParameters.add(
+                Parameter(
+                  (p1) => p1
+                    ..name = "json"
+                    ..type = Reference("Map<String, dynamic>"),
+                ),
+              )
+              ..body = Code("return compute(_parseObject, json);"),
+          ),
+        )
+        ..methods.add(
+          Method(
+            (m5) => m5
+              ..static = true
+              ..returns = Reference("T")
+              ..name = "_parseObject<T>"
+              ..requiredParameters.add(
+                Parameter(
+                  (p1) => p1
+                    ..name = "json"
+                    ..type = Reference("Map<String, dynamic>"),
+                ),
+              )
+              ..body = Code("return AbstractJsonParser.fromJson<T>(json);"),
+          ),
+        ),
+    );
   }
 
   Future<Class> _createAbstractJsonParser(BuildStep buildStep) async {
@@ -112,20 +157,29 @@ class ExportsBuilderGenerator implements Builder {
     methodContent.write("switch (T) {");
     await for (var exportLibrary in exports) {
       methodContent.write(
-          "case ${await buildStep.readAsString(exportLibrary)}: return ${await buildStep.readAsString(exportLibrary)}.fromJson(json) as T;");
+        "case ${await buildStep.readAsString(exportLibrary)}: return ${await buildStep.readAsString(exportLibrary)}.fromJson(json) as T;",
+      );
     }
     methodContent.write("default:throw UnimplementedError();  }");
 
-    return Class((b) => b
-      ..name = "AbstractJsonParser"
-      ..methods.add(Method((m1) {
-        m1.static = true;
-        m1.returns = const Reference("T");
-        m1.name = "fromJson<T>";
-        m1.requiredParameters.add(Parameter((p1) => p1
-          ..name = "json"
-          ..type = const Reference("Map<String, dynamic>")));
-        m1.body = Code(methodContent.toString());
-      })));
+    return Class(
+      (b) => b
+        ..name = "AbstractJsonParser"
+        ..methods.add(
+          Method((m1) {
+            m1.static = true;
+            m1.returns = const Reference("T");
+            m1.name = "fromJson<T>";
+            m1.requiredParameters.add(
+              Parameter(
+                (p1) => p1
+                  ..name = "json"
+                  ..type = const Reference("Map<String, dynamic>"),
+              ),
+            );
+            m1.body = Code(methodContent.toString());
+          }),
+        ),
+    );
   }
 }

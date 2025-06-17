@@ -9,3 +9,7 @@
 ## 0.0.4
 
 - Add parseJsonBackground to parse single JSON object
+
+## 0.0.5
+
+- Update libraries
