@@ -50,6 +50,9 @@ class ExportsBuilderGenerator implements Builder {
     content.join('\n');
     content.add("import 'package:flutter/foundation.dart';");
 
+    content.join('\n');
+    content.add("import 'dart:async';");
+
     final isolateJsonParser = _createIsolateJsonParserClass();
     content.join('\n');
     final abstractJsonParser = await _createAbstractJsonParser(buildStep);
@@ -154,13 +157,13 @@ class ExportsBuilderGenerator implements Builder {
     final exports = buildStep.findAssets(Glob('**/*.exports'));
     final methodContent = StringBuffer();
 
-    methodContent.write("switch (T) {");
     await for (var exportLibrary in exports) {
       methodContent.write(
-        "case ${await buildStep.readAsString(exportLibrary)}: return ${await buildStep.readAsString(exportLibrary)}.fromJson(json) as T;",
+        "${methodContent.isNotEmpty ? "else " : ""}if (T == ${await buildStep.readAsString(exportLibrary)} || T == FutureOr<${await buildStep.readAsString(exportLibrary)}>){ return ${await buildStep.readAsString(exportLibrary)}.fromJson(json) as T;}",
       );
     }
-    methodContent.write("default:throw UnimplementedError();  }");
+
+    methodContent.write("else { throw UnimplementedError(); }");
 
     return Class(
       (b) => b

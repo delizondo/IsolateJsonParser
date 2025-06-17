@@ -1,5 +1,6 @@
 import 'package:isolate_json_parser_example/model/event.dart'; 
 import 'package:flutter/foundation.dart';
+import 'dart:async';
 class IsolateJsonParser {
   static Future<List<T>> parseJsonListBackground<T>(List jsonList) async {
     return compute(_parseList, jsonList);
@@ -22,11 +23,10 @@ class IsolateJsonParser {
 
 class AbstractJsonParser {
   static T fromJson<T>(Map<String, dynamic> json) {
-    switch (T) {
-      case Event:
-        return Event.fromJson(json) as T;
-      default:
-        throw UnimplementedError();
+    if (T == Event || T == FutureOr<Event>) {
+      return Event.fromJson(json) as T;
+    } else {
+      throw UnimplementedError();
     }
   }
 }
