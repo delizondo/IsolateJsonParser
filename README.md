@@ -62,7 +62,7 @@ When you execute any API call that returns a JSON, you can call the `IsolateJson
     if (response.statusCode == 200) {
       var data = response.data as Map<String, dynamic>;
       var jsonList = data["events"];
-      return IsolateJsonParser.parseJsonListBackground<Event>(jsonList);
+      return IsolateJsonParserBuilder.parseJsonListBackground<Event>(jsonList);
     } else {
       throw Exception('Failed to load json');
     }
