@@ -36,7 +36,7 @@ class IsolateJsonParserGenerator implements Builder {
 class ExportsBuilderGenerator implements Builder {
   @override
   final buildExtensions = const {
-    r'$lib$': ['isolate_json_parser.dart'],
+    r'$lib$': ['isolate_json_parser_builder.dart'],
   };
 
   @override
@@ -73,7 +73,10 @@ class ExportsBuilderGenerator implements Builder {
     );
 
     buildStep.writeAsString(
-      AssetId(buildStep.inputId.package, 'lib/isolate_json_parser.dart'),
+      AssetId(
+        buildStep.inputId.package,
+        'lib/isolate_json_parser_builder.dart',
+      ),
       content.join('\n'),
     );
   }
@@ -81,7 +84,7 @@ class ExportsBuilderGenerator implements Builder {
   Class _createIsolateJsonParserClass() {
     return Class(
       (b) => b
-        ..name = 'IsolateJsonParser'
+        ..name = 'IsolateJsonParserBuilder'
         ..methods.add(
           Method(
             (m2) => m2
@@ -163,7 +166,9 @@ class ExportsBuilderGenerator implements Builder {
       );
     }
 
-    methodContent.write("else { throw UnimplementedError(); }");
+    methodContent.write(
+      "else { throw UnimplementedError(\"\$T not implemented\"); }",
+    );
 
     return Class(
       (b) => b

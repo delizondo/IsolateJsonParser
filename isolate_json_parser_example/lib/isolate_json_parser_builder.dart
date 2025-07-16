@@ -1,7 +1,7 @@
 import 'package:isolate_json_parser_example/model/event.dart'; 
 import 'package:flutter/foundation.dart';
 import 'dart:async';
-class IsolateJsonParser {
+class IsolateJsonParserBuilder {
   static Future<List<T>> parseJsonListBackground<T>(List jsonList) async {
     return compute(_parseList, jsonList);
   }
@@ -26,7 +26,7 @@ class AbstractJsonParser {
     if (T == Event || T == FutureOr<Event>) {
       return Event.fromJson(json) as T;
     } else {
-      throw UnimplementedError();
+      throw UnimplementedError("$T not implemented");
     }
   }
 }

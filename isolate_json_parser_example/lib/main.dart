@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:isolate_json_parser_example/isolate_json_parser.dart';
+import 'package:isolate_json_parser_example/isolate_json_parser_builder.dart';
 import 'package:isolate_json_parser_example/model/event.dart';
 
 void main() {
@@ -63,8 +63,8 @@ class APIClient {
         await _dio.get('https://eonet.gsfc.nasa.gov/api/v2.1/events');
     if (response.statusCode == 200) {
       var data = response.data as Map<String, dynamic>;
-      var jsonList = data["events"];      
-      return IsolateJsonParser.parseJsonListBackground<Event>(jsonList);
+      var jsonList = data["events"];
+      return IsolateJsonParserBuilder.parseJsonListBackground<Event>(jsonList);
     } else {
       throw Exception('Failed to load json');
     }
