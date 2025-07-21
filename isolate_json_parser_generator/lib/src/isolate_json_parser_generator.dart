@@ -17,7 +17,7 @@ class IsolateJsonParserGenerator implements Builder {
     const exportAnnotation = TypeChecker.fromRuntime(IsolateJsonParser);
     final annotated = [
       for (var member in lib.annotatedWith(exportAnnotation))
-        member.element.name,
+        member.element.displayName,
     ];
     if (annotated.isNotEmpty) {
       buildStep.writeAsString(

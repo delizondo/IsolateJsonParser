@@ -22,3 +22,7 @@
 
 - Change Generated Class Name
 - Improve exception handling
+
+## 0.0.8
+
+- Update libraries

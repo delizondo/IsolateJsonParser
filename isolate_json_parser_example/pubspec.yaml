@@ -4,23 +4,23 @@ publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: ^3.5.3
+  sdk: ^3.8.1
 
 dependencies:
   flutter:
     sdk: flutter
-  isolate_json_parser: ^0.0.5
-  dio: ^5.6.0
+  isolate_json_parser: ^0.0.7
+  dio: ^5.8.0+1
   json_annotation: ^4.9.0
-  flutter_riverpod: ^2.5.1
+  flutter_riverpod: ^2.6.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
-  build_runner: ^2.4.11
-  json_serializable: ^6.8.0
-  isolate_json_parser_generator: ^0.0.7
+  build_runner: ^2.6.0
+  json_serializable: ^6.10.0
+  isolate_json_parser_generator: ^0.0.8
 
 flutter:
   uses-material-design: true
